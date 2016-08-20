@@ -3,7 +3,14 @@ namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
     public function index(){
-        echo '博客正在建设中.......';
-        
+        // //实例化用户表
+
+        //  $user = M('user');
+
+        //  $user_list = $user->select();
+
+        //  var_dump($user_list);
+        $this->display();
+
     }
 }
