@@ -3,7 +3,8 @@
 <head>
  <meta charset="gb2312">
  <title>大水个人技术博客</title>
- <meta name="¹Ø¼ü×Ö" content="">
+ <meta name="大水" content="">
+ <meta charset="UTF-8">
  <link href="/Public/css/buju.css" rel="stylesheet">
  <link href="/Public/css/index.css" rel="stylesheet">
  <script type="text/javascript" src="/Public/js/jquery.min.js"></script>
@@ -61,24 +62,24 @@
 		 }
 		 slider.data=[
 		 {
-		     "id":"slide-img-1", //Óëslide-runnerÖÐµÄimg±êÇ©id¶ÔÓ¦
-			 "client":"×íÅ£±Æ",
-			 "desc":"×íÅ£±ÆÊÇÎä»ê×íÅ£±ÆµÄ´æÔÚ"     //ÕâÀïÃèÊöÍ¼Æ¬ÄÚÈÝ
+		     "id":"slide-img-1", //
+			 "client":"blog",
+			 "desc":"blog"     //ÕâÀïÃèÊöÍ¼Æ¬ÄÚÈÝ
 		 },
 		 {
 		     "id":"slide-img-2", 
-			 "client":"×íÅ£±Æ",
-			 "desc":"×íÅ£±ÆÊÇÎä»ê×íÅ£±ÆµÄ´æÔÚ"
+			 "client":"xxx",
+			 "desc":"blog"
 		 },
 		 {
 		     "id":"slide-img-3", 
-			 "client":"×íÅ£±Æ",
-			 "desc":"×íÅ£±ÆÊÇÎä»ê×íÅ£±ÆµÄ´æÔÚ"
+			 "client":"blog",
+			 "desc":"blog"
 		 },
 		 {
 		     "id":"slide-img-4", 
-			 "client":"×íÅ£±Æ",
-			 "desc":"×íÅ£±ÆÊÇÎä»ê×íÅ£±ÆµÄ´æÔÚ"
+			 "client":"blog",
+			 "desc":"blog"
 		 }
 		 ];
 	   </script>
@@ -228,7 +229,7 @@
 	 </div>  
     <div class="r_box f_r">
 	   <div class="tit01">
-         <h3>¹Ø×¢ÎÒ</h3>
+         <h3>关注我</h3>
 		  <div class="gzwm">
 		    <ul>
 			   <li><a class="xlwb" href="#" target="_blank">新浪微博</a></li>
