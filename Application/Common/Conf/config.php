@@ -21,14 +21,14 @@ return array(
     'SITE_URL'     =>  'http://www.tandashui.com',
 );
 
-location / {
-            #root   html;
-            index  index.html index.htm index.php;
-                 if (!-e $request_filename) {
+// location / {
+//             #root   html;
+//             index  index.html index.htm index.php;
+//                  if (!-e $request_filename) {
 
-        rewrite  ^(.*)$  /index.php?s=$1  last;
+//         rewrite  ^(.*)$  /index.php?s=$1  last;
 
-        break;
+//         break;
 
-    }
-}
+//     }
+// }
