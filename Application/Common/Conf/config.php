@@ -7,7 +7,7 @@ return array(
 
     'MULTI_MODULE'          =>  true,
 	//'配置项'=>'配置值'
-    'URL_MODEL'             =>  '2',    //URL模式
+    'URL_MODEL'             =>  '1',    //URL模式
 	//数控信息
     'DB_TYPE'      =>  'mysql',                 // 数据库类型
     'DB_HOST'      =>  '120.27.188.126',        // 服务器地址
