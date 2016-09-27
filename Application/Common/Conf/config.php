@@ -1,5 +1,11 @@
 <?php
 return array(
+    //'配置项'=>'配置值'
+    'MODULE_ALLOW_LIST'    =>    array('Home','Admin'), //网站首页商户后台、管理后台、微信下单页
+    'DEFAULT_MODULE'       =>    'Home',
+    'URL_CASE_INSENSITIVE' =>true, //访问action 不区分大小写
+
+    'MULTI_MODULE'          =>  true,
 	//'配置项'=>'配置值'
     'URL_MODEL'             =>  '2',    //URL模式
 	//数控信息
