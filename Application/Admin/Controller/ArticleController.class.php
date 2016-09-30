@@ -18,7 +18,7 @@ class ArticleController extends Controller {
     	$result = $this->terms_model->order(array("listorder"=>"asc"))->select();
 
     	// var_dump($result);die;
-    	$tree = new \Org\Util\tree;
+    	$tree = new \Org\Util\Tree;
 
     	// var_dump($Tree);die;
 
@@ -59,7 +59,7 @@ class ArticleController extends Controller {
 
     function add(){
 	 	$parentid = intval(I("get.parent"));
-	 	$tree = new \Org\Util\tree();
+	 	$tree = new \Org\Util\Tree();
 	 	$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
 	 	$tree->nbsp = '&nbsp;&nbsp;&nbsp;';
 	 	$terms = $this->terms_model->order(array("path"=>"asc"))->select();
@@ -100,7 +100,7 @@ class ArticleController extends Controller {
 		$id = intval(I("get.id"));
 		$data=$this->terms_model->where(array("term_id" => $id))->find();
 		// $tree = new \Tree();
-		$tree = new \Org\Util\tree;
+		$tree = new \Org\Util\Tree;
 		$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
 		$tree->nbsp = '&nbsp;&nbsp;&nbsp;';
 		$terms = $this->terms_model->where(array("term_id" => array("NEQ",$id), "path"=>array("notlike","%-$id-%")))->order(array("path"=>"asc"))->select();
