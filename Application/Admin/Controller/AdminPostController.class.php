@@ -78,7 +78,7 @@ class AdminPostController extends Controller {
 	private function _getTermTree($term=array()){
 		$result = $this->terms_model->order(array("listorder"=>"asc"))->select();
 		
-		$tree = new \Org\Util\Tree();
+		$tree = new \Org\Util\tree();
 		$tree->icon = array('&nbsp;&nbsp;&nbsp;│ ', '&nbsp;&nbsp;&nbsp;├─ ', '&nbsp;&nbsp;&nbsp;└─ ');
 		$tree->nbsp = '&nbsp;&nbsp;&nbsp;';
 		foreach ($result as $r) {
