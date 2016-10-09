@@ -102,7 +102,7 @@
         <div class="more"><a href="">PHP</a><a href="">JavaScript</a><a href="">EmpireCMS</a><a href="">Apache</a><a href="">MySQL</a></div>
       </div>
       <volist name="list['posts']" id="vo">
-      <article class="excerpt excerpt-1"><a class="focus" href="article.html" title=""><img class="thumb" data-original="images/excerpt.jpg" src="__PUBLIC__/Uploads/{$vo.smeta}" alt=""></a>
+      <article class="excerpt excerpt-1"><a class="focus" href="{:leuu('article/index',array('id'=>$vo['tid'],'cid'=>$vo['term_id']))}" title=""><img class="thumb" data-original="__PUBLIC__/Uploads/{$vo.smeta}" src="__PUBLIC__/default/images/excerpt.jpg" alt=""></a>
         <header><a class="cat" href="program">后端程序<i></i></a>
           <h2><a href="{:leuu('article/index',array('id'=>$vo['tid'],'cid'=>$vo['term_id']))}" title="">{$vo.post_title}</a></h2>
         </header>
