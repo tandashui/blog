@@ -37,7 +37,7 @@ class ArticleController extends Controller {
 			// var_dump($r);die;
 			$array[] = $r;
 		}
-		// var_dump($array);die;
+		var_dump($array);die;
 
 		$tree->init($array);
 		// var_dump($tree->init($array));die;

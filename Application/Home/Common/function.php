@@ -406,3 +406,137 @@ function sp_content_page($content,$pagetpl='{first}{prev}{liststart}{list}{liste
 	
 	return $data;
 }
+
+/**
+ * 返回指定id的菜单
+ * 同上一类方法，jquery treeview 风格，可伸缩样式
+ * @param $myid 表示获得这个ID下的所有子级
+ * @param $effected_id 需要生成treeview目录数的id
+ * @param $str 末级样式
+ * @param $str2 目录级别样式
+ * @param $showlevel 直接显示层级数，其余为异步显示，0为全部限制
+ * @param $ul_class 内部ul样式 默认空  可增加其他样式如'sub-menu'
+ * @param $li_class 内部li样式 默认空  可增加其他样式如'menu-item'
+ * @param $style 目录样式 默认 filetree 可增加其他样式如'filetree treeview-famfamfam'
+ * @param $dropdown 有子元素时li的class
+ * $id="main";
+ $effected_id="mainmenu";
+ $filetpl="<a href='\$href'><span class='file'>\$label</span></a>";
+ $foldertpl="<span class='folder'>\$label</span>";
+ $ul_class="" ;
+ $li_class="" ;
+ $style="filetree";
+ $showlevel=6;
+ sp_get_menu($id,$effected_id,$filetpl,$foldertpl,$ul_class,$li_class,$style,$showlevel);
+ * such as
+ * <ul id="example" class="filetree ">
+ <li class="hasChildren" id='1'>
+ <span class='folder'>test</span>
+ <ul>
+ <li class="hasChildren" id='4'>
+ <span class='folder'>caidan2</span>
+ <ul>
+ <li class="hasChildren" id='5'>
+ <span class='folder'>sss</span>
+ <ul>
+ <li id='3'><span class='folder'>test2</span></li>
+ </ul>
+ </li>
+ </ul>
+ </li>
+ </ul>
+ </li>
+ <li class="hasChildren" id='6'><span class='file'>ss</span></li>
+ </ul>
+ */
+
+function sp_get_menu($id="main",$effected_id="mainmenu",$filetpl="<span class='file'>\$label</span>",$foldertpl="<span class='folder'>\$label</span>",$ul_class="" ,$li_class="" ,$style="filetree",$showlevel=6,$dropdown='hasChild'){
+	$navs=F("site_nav_".$id);
+	if(empty($navs)){
+		$navs=_sp_get_menu_datas($id);
+	}
+	
+	// import("Tree");
+	$tree = new \Org\Util\Tree();
+	$tree->init($navs);
+	return $tree->get_treeview_menu(0,$effected_id, $filetpl, $foldertpl,  $showlevel,$ul_class,$li_class,  $style,  1, FALSE, $dropdown);
+}
+
+function _sp_get_menu_datas($id){
+	$nav_obj= M("Nav");
+	$oldid=$id;
+	$id= intval($id);
+	$id = empty($id)?"main":$id;
+	if($id=="main"){
+		$navcat_obj= M("NavCat");
+		$main=$navcat_obj->where("active=1")->find();
+		$id=$main['navcid'];
+	}
+	
+	if(empty($id)){
+		return array();
+	}
+	
+	$navs= $nav_obj->where(array('cid'=>$id,'status'=>1))->order(array("listorder" => "ASC"))->select();
+	foreach ($navs as $key=>$nav){
+		$href=htmlspecialchars_decode($nav['href']);
+		$hrefold=$href;
+		
+		if(strpos($hrefold,"{")){//序列 化的数据
+			$href=unserialize(stripslashes($nav['href']));
+			$default_app=strtolower(C("DEFAULT_MODULE"));
+			$href=strtolower(leuu($href['action'],$href['param']));
+			$g=C("VAR_MODULE");
+			$href=preg_replace("/\/$default_app\//", "/",$href);
+			$href=preg_replace("/$g=$default_app&/", "",$href);
+		}else{
+			if($hrefold=="home"){
+				$href=__ROOT__."/";
+			}else{
+				$href=$hrefold;
+			}
+		}
+		$nav['href']=$href;
+		$navs[$key]=$nav;
+	}
+	F("site_nav_".$oldid,$navs);
+	return $navs;
+}
+
+/**
+ * Think扩展函数库 需要手动加载后调用或者放入项目函数库
+ * @category   Extend
+ * @package  Extend
+ * @subpackage  Function
+ * @author   liu21st <liu21st@gmail.com>
+ */
+
+/**
+ * 字符串截取，支持中文和其他编码
+ * @static
+ * @access public
+ * @param string $str 需要转换的字符串
+ * @param string $start 开始位置
+ * @param string $length 截取长度
+ * @param string $charset 编码格式
+ * @param string $suffix 截断显示字符
+ * @return string
+ */
+function msubstr($str, $start=0, $length, $charset="utf-8", $suffix=true) {
+    if(function_exists("mb_substr"))
+        $slice = mb_substr($str, $start, $length, $charset);
+    elseif(function_exists('iconv_substr')) {
+        $slice = iconv_substr($str,$start,$length,$charset);
+        if(false === $slice) {
+            $slice = '';
+        }
+    }else{
+        $re['utf-8']   = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
+        $re['gb2312'] = "/[\x01-\x7f]|[\xb0-\xf7][\xa0-\xfe]/";
+        $re['gbk']    = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
+        $re['big5']   = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
+        preg_match_all($re[$charset], $str, $match);
+        $slice = join("",array_slice($match[0], $start, $length));
+    }
+    return $suffix ? $slice.'...' : $slice;
+}

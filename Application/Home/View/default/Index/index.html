@@ -24,6 +24,27 @@
 <!--[if lt IE 9]>
   <script>window.location.href='upgrade-browser.html';</script>
 <![endif]-->
+
+<style type="text/css">
+
+/*导航条设置*/
+ul.nav-main>li{width:133px;height:100%;display:block;float:left;color:#fff;margin-right:1px;cursor:pointer}
+ul.nav-main>li:hover{background:#fff ; color:#be4355 }
+ul.nav-main>li:hover span{ background:url(images/sg3.jpg)  no-repeat center center; z-index:100000 }
+/*隐藏盒子设置*/
+div.hidden-box{width:88px;position:absolute;display:none;background:#315565 url(images/sj2.png) no-repeat  top center;top:79px;filter:alpha(opacity=80); -moz-opacity:0.8; opacity:0.8;z-index:999;}
+.hidden-box>ul{list-style-type:none;color:#fff;cursor:pointer; padding-top:12px;padding-bottom:15px}
+.hidden-box>ul li{ line-height:30px; height:30px; font-weight:500}
+.hidden-box li:hover{background:#643519;color:#fff}
+
+/*隐藏盒子位置设置*/
+.hidden-loc-index{left:626px}
+.hidden-loc-us{left:718px}
+.hidden-loc-info{left:797px}
+.box04{left:895px}
+.box05{left:988px}
+
+</style>
 </head>
 
 <body class="user-select">
@@ -51,12 +72,71 @@
       <div class="collapse navbar-collapse" id="header-navbar">
         <ul class="nav navbar-nav navbar-right">
           <li class="hidden-index active"><a data-cont="异清轩首页" href="{:U('Index/index')}">首页</a></li>
-          <li><a href="category.html">前端技术</a></li>
-          <li><a href="category.html">后端程序</a></li>
-          <li><a href="category.html">管理系统</a></li>
-          <li><a href="category.html">授人以渔</a></li>
-          <li><a href="category.html">程序人生</a></li>
+         <!--  <li id="li-1" ><a href="category.html">前端技术</a></li>
+          <li id="li-2"><a href="category.html">后端程序</a></li>
+          <li id="li-3" ><a href="category.html">管理系统</a></li>
+          <li id="li-4" ><a href="category.html">授人以渔</a></li>
+          <li id="li-5" ><a href="category.html">程序人生</a></li> -->
+          
+          <volist name="result1" id="vo" key="k" >
+           <li id="li-{$k}" ><a href="{$vo.url}">{$vo.name}</a></li>
+           </volist>
         </ul>
+        <!--隐藏盒子-->
+      <!-- <div id="box-1" class="hidden-box hidden-loc-index">
+        <ul>
+          <li>公司简介</li>
+          <li>公司荣誉</li>
+        </ul>
+      </div>
+
+       <div id="box-2" class="hidden-box hidden-loc-us">
+        <ul>
+          <li>金属字</li>
+          <li>发光字</li>
+          <li>灯箱</li>
+          <li>水晶</li>
+          <li>LED显示屏</li>
+          <li>导视系统</li>
+        </ul>
+      </div>
+      <div id="box-3" class="hidden-box hidden-loc-info">
+        <ul>
+          <li>金属字</li>
+          <li>发光字</li>
+          <li>灯箱</li>
+          <li>水晶</li>
+          <li>LED显示屏</li>
+          <li>导视系统</li>
+          <li>消费者服务</li>
+        </ul>
+      </div>
+      <div id="box-4" class="hidden-box hidden-loc-info box04">
+        <ul>
+          <li>联系我们</li>
+          <li>加入我们</li>
+        </ul>
+      </div> -->
+        <volist name="result1" id="vo" key="k">
+        <if condition="($vo.children neq '') "> 
+         <div id="box-{$k}" class="hidden-box 
+             <if condition="($k eq 1) "> hidden-loc-index
+            <elseif condition="$k eq 2"/>hidden-loc-us
+            <elseif condition="$k eq 3"/>hidden-loc-info
+            <elseif condition="$k eq 4"/>box04
+            <elseif condition="$k eq 5"/>box05
+            <else /> 
+            </if>
+         ">
+          <ul>
+          <volist name="vo['children']" id="ch">
+            <li><a href="{$vo.url}" style="color:white;">{$ch.name}</a></li>
+            </volist>
+          </ul>
+        </div>
+
+        </if>
+        </volist>
         <form class="navbar-form visible-xs" action="/Search" method="post">
           <div class="input-group">
             <input type="text" name="keyword" class="form-control" placeholder="请输入关键字" maxlength="20" autocomplete="off">
@@ -72,7 +152,7 @@
   <div class="content-wrap">
     <div class="content">
       <div class="jumbotron">
-        <h1>欢迎访问异清轩博客</h1>
+        <h1>欢迎访问檀大水博客</h1>
         <p>在这里可以看到前端技术，后端程序，网站内容管理系统等文章，还有我的程序人生！</p>
       </div>
       <div id="focusslide" class="carousel slide" data-ride="carousel">
@@ -98,10 +178,10 @@
         <p class="note">一次我下载几部电影，发现如果同时下载多部要等上几个小时，然后我把最想看的做个先后排序，去设置同时只能下载一部，结果是不到一杯茶功夫我就能看到最想看的电影。 这就像我们一段时间内想干成很多事情，是同时干还是有选择有顺序的干，结果很不一样。同时...</p>
       </article>
       <div class="title">
-        <h3>最新发布</h3>
+        <h3>文章列表</h3>
         <div class="more"><a href="">PHP</a><a href="">JavaScript</a><a href="">EmpireCMS</a><a href="">Apache</a><a href="">MySQL</a></div>
       </div>
-      <volist name="list['posts']" id="vo">
+      <volist name="list['posts']" id="vo" empty="暂无数据">
       <article class="excerpt excerpt-1"><a class="focus" href="{:leuu('article/index',array('id'=>$vo['tid'],'cid'=>$vo['term_id']))}" title=""><img class="thumb" data-original="__PUBLIC__/Uploads/{$vo.smeta}" src="__PUBLIC__/default/images/excerpt.jpg" alt=""></a>
         <header><a class="cat" href="program">后端程序<i></i></a>
           <h2><a href="{:leuu('article/index',array('id'=>$vo['tid'],'cid'=>$vo['term_id']))}" title="">{$vo.post_title}</a></h2>
@@ -109,7 +189,7 @@
         <p class="meta">
           <time class="time"><i class="glyphicon glyphicon-time"></i> {$vo.post_date}</time>
           <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共{$vo.post_hits}人围观</span> <a class="comment" href="article.html#comment"><i class="glyphicon glyphicon-comment"></i> 0个不明物体</a></p>
-        <p class="note">可以用strtotime()把日期（$date）转成时间戳，再用date()按需要验证的格式转成一个日期，来跟$date比较是否相同来验证这个日期的格式是否是正确的。所以要验证日期格式 ... </p>
+        <p class="note">{$vo.post_excerpt|msubstr=0,500} </p>
       </article>
      </volist>
       
@@ -140,13 +220,11 @@
             <ul>
               <li>
                 <time datetime="2016-01-04">01-04</time>
-                <a href="" target="_blank">欢迎访问异清轩博客</a></li>
+                <a href="" target="_blank">欢迎访问檀大水博客</a></li>
               <li>
                 <time datetime="2016-01-04">01-04</time>
                 <a target="_blank" href="">在这里可以看到前端技术，后端程序，网站内容管理系统等文章，还有我的程序人生！</a></li>
-              <li>
-                <time datetime="2016-01-04">01-04</time>
-                <a target="_blank" href="">在这个小工具中最多可以调用五条</a></li>
+             
             </ul>
           </div>
           <div role="tabpanel" class="tab-pane centre" id="centre">
@@ -155,7 +233,7 @@
           </div>
           <div role="tabpanel" class="tab-pane contact" id="contact">
             <h2>Email:<br />
-              <a href="mailto:admin@ylsat.com" data-toggle="tooltip" data-placement="bottom" title="admin@ylsat.com">admin@ylsat.com</a></h2>
+              <a href="mailto:admin@ylsat.com" data-toggle="tooltip" data-placement="bottom" title="admin@ylsat.com">99056108@qq.com</a></h2>
           </div>
         </div>
       </div>
@@ -180,11 +258,11 @@
     <div class="widget widget_hot">
       <h3>热门文章</h3>
       <ul>
-        <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-        <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-        <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-        <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
-        <li><a href=""><span class="thumbnail"><img class="thumb" data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a></li>
+      <volist name="hot['posts']" id="vo" empty="暂无数据">
+        <li>
+        <a href=""><span class="thumbnail"><img class="thumb" data-original="__PUBLIC__/default/images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a>
+        </li>
+        </volist>
       </ul>
     </div>
   </aside>
@@ -264,5 +342,40 @@
 <script src="__PUBLIC__/default/js/bootstrap.min.js"></script> 
 <script src="__PUBLIC__/default/js/jquery.ias.js"></script> 
 <script src="__PUBLIC__/default/js/scripts.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+   
+//    nav-li hover e
+    var num;
+    $('.nav>li[id]').hover(function(){
+       /*图标向上旋转*/
+        $(this).children().removeClass().addClass('hover-up');
+        /*下拉框出现*/
+        var Obj = $(this).attr('id');
+        num = Obj.substring(3, Obj.length);
+        // alert(num);
+        // if(num = 6){
+        //   return false;
+        // }
+
+        $('#box-'+num).slideDown(300);
+        // alert(num);
+    },function(){
+        /*图标向下旋转*/
+        $(this).children().removeClass().addClass('hover-down');
+        /*下拉框消失*/
+        $('#box-'+num).hide();
+    });
+//    hidden-box hover e
+    $('.hidden-box').hover(function(){
+        /*保持图标向上*/
+        $('#li-'+num).children().removeClass().addClass('hover-up');
+        $(this).show();
+    },function(){
+        $(this).slideUp(200);
+        $('#li-'+num).children().removeClass().addClass('hover-down');
+    });
+});
+</script>
 </body>
 </html>
