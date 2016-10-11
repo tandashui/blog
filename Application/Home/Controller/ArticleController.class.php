@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class ArticleController extends Controller {
+class ArticleController extends BaseController {
     public function index(){
     	$id=intval($_GET['id']);
         // var_dump($id);die;

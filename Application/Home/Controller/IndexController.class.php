@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class IndexController extends Controller {
+class IndexController extends BaseController {
     public function index(){
         $id=I('get.id');
 
@@ -56,8 +56,7 @@ class IndexController extends Controller {
                 $hot=sp_sql_posts_paged("cid:$term_ids;order:post_hits DESC;",5);
         //热门文章
         // var_dump($hot);die;
-        $this->assign('hot', $hot);
-        $this->assign('result1', $result1);
+        
         $this->assign('list', $list);
         $this->display();
 
