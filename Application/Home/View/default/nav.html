@@ -25,11 +25,11 @@
          
           
           <volist name="result1" id="vo" key="k" >
-           <li id="li-{$k}" ><a href="#">{$vo.name}</a></li>
+           <li id="li-{$k}" ><a href="{$vo.url}">{$vo.name}</a></li>
            </volist>
         </ul>
        
-        <volist name="result1" id="vo" key="k">
+        <!-- <volist name="result1" id="vo" key="k">
         <if condition="($vo.children neq '') "> 
          <div id="box-{$k}" class="hidden-box 
              <if condition="($k eq 1) "> hidden-loc-index
@@ -48,7 +48,7 @@
         </div>
 
         </if>
-        </volist>
+        </volist> -->
         <form class="navbar-form visible-xs" action="/Search" method="post">
           <div class="input-group">
             <input type="text" name="keyword" class="form-control" placeholder="请输入关键字" maxlength="20" autocomplete="off">

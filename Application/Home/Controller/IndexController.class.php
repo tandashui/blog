@@ -9,11 +9,13 @@ class IndexController extends BaseController {
     	$term_model = M('terms');
         if(!empty($id)){
                 //查出所有的分类
-            $term_id = $term_model->getField('term_id',true);
-            $term_ids=implode(",",$term_id);
+            // $term_id = $term_model->getField('term_id',true);
+            // $term_ids=implode(",",$term_id);
+            // echo $id;die;
 
             // var_dump($term_ids);die;
             $list=sp_sql_posts_paged("cid:$id;order:post_date DESC;",5);
+            // var_dump($list);die;
         }else{
                     //查出所有的分类
                 $term_id = $term_model->getField('term_id',true);
