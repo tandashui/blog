@@ -3,7 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 class BaseController extends Controller {
     public function _initialize(){
-    	
+
     	$term_model = M('terms');
         
     	
@@ -30,6 +30,12 @@ class BaseController extends Controller {
         // dump($list);
 
         $result = $term_model->order(array("listorder"=>"asc"))->select();
+         foreach ($result as $kss => $vss) {
+            # code...
+            $url=U('Home/Index/index',array('id'=>$vss['term_id']));
+            // echo $url;die;
+            $result[$kss]["url"] = $url;
+        }
         $where['parent'] = array('eq',0);
         $result1 = $term_model->order(array("listorder"=>"asc"))->where($where)->select();
 
@@ -51,6 +57,8 @@ class BaseController extends Controller {
             }
             
         }
+
+        // var_dump($result1);die;
 
          //查出所有的分类
                 $term_id = $term_model->getField('term_id',true);

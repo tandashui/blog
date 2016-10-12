@@ -21,11 +21,11 @@
       </div>
       <div class="collapse navbar-collapse" id="header-navbar">
         <ul class="nav navbar-nav navbar-right">
-          <li class="hidden-index active"><a data-cont="异清轩首页" href="{:U('Index/index')}">首页</a></li>
+          <li class="hidden-index active"><a data-cont="首页" href="{:U('Index/index')}">首页</a></li>
          
           
           <volist name="result1" id="vo" key="k" >
-           <li id="li-{$k}" ><a href="{$vo.url}">{$vo.name}</a></li>
+           <li id="li-{$k}" ><a href="#">{$vo.name}</a></li>
            </volist>
         </ul>
        
@@ -42,7 +42,7 @@
          ">
           <ul>
           <volist name="vo['children']" id="ch">
-            <li><a href="{$vo.url}" style="color:white;">{$ch.name}</a></li>
+            <li><a href="{$ch.url}" style="color:white;">{$ch.name}</a></li>
             </volist>
           </ul>
         </div>
