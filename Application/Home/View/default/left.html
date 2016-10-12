@@ -44,7 +44,7 @@
       <ul>
       <volist name="hot['posts']" id="vo" empty="暂无数据">
         <li>
-        <a href=""><span class="thumbnail"><img class="thumb" data-original="__PUBLIC__/default/images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">php如何判断一个日期的格式是否正确</span><span class="muted"><i class="glyphicon glyphicon-time"></i> 2016-1-4 </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> 120</span></a>
+        <a href=""><span class="thumbnail"><img class="thumb" data-original="__PUBLIC__/default/images/excerpt.jpg" src="images/excerpt.jpg" alt=""></span><span class="text">{$vo.post_title}</span><span class="muted"><i class="glyphicon glyphicon-time"></i> {$vo.post_date} </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> {$vo.post_hits}</span></a>
         </li>
         </volist>
       </ul>
