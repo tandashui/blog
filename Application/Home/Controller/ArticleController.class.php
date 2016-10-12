@@ -3,6 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 class ArticleController extends BaseController {
     public function index(){
+        $term_model = M('terms');
     	$id=intval($_GET['id']);
         // var_dump($id);die;
         $article=sp_sql_post($id,'');
@@ -42,6 +43,12 @@ class ArticleController extends BaseController {
         $smeta=json_decode($article['smeta'],true);
         $content_data=sp_content_page($article['post_content']);
         $article['post_content']=$content_data['content'];
+
+            $cats['parent']=array('eq',$article['term_id']);
+
+            $cat=$term_model->where($cats)->find();
+           
+            $article["name"]=$cat['name'];
         // var_dump($article);die;
         $this->assign("page",$content_data['page']);
         $this->assign($article);

@@ -22,10 +22,22 @@ class IndexController extends BaseController {
                 // var_dump($term_ids);die;
                 $list=sp_sql_posts_paged("cid:$term_ids;order:post_date DESC;",5);
         }
+        // var_dump($list);die;
+        //查出文章所属分类
+         foreach ($list['posts'] as $kss => $vss) {
+          
+            $cats['parent']=array('eq',$vss['term_id']);
+
+            $cat=$term_model->where($cats)->find();
+           
+            $list['posts'][$kss]["name"]=$cat['name'];
+
+        }
     	
         // dump($list);
 
         $result = $term_model->order(array("listorder"=>"asc"))->select();
+
         $where['parent'] = array('eq',0);
         $result1 = $term_model->order(array("listorder"=>"asc"))->where($where)->select();
 
