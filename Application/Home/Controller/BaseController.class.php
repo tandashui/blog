@@ -35,10 +35,10 @@ class BaseController extends Controller {
             $url=U('Home/Index/index',array('id'=>$vss['term_id']));
             // echo $url;die;
             $result[$kss]["url"] = $url;
-            $cats['id']=array('eq',$vss['parent']);
-            $cat=$term_model->where($cats)->find();
-            // var_dump($cat);die;
-            $result[$kss]["url"]=$cat['name'];
+            // $cats['id']=array('eq',$vss['parent']);
+            // $cat=$term_model->where($cats)->find();
+            // // var_dump($cat);die;
+            // $result[$kss]["url"]=$cat['name'];
 
         }
         $where['parent'] = array('eq',0);
