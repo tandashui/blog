@@ -61,7 +61,7 @@ function sp_sql_posts_paged($tag,$pagesize=20,$pagetpl='{first}{prev}{liststart}
 	$page->__set("PageParam", $PageParam);
 	$page->SetPager('default', $pagetpl, array("listlong" => "9", "first" => "首页", "last" => "尾页", "prev" => "上一页", "next" => "下一页", "list" => "*", "disabledclass" => ""));
 	$posts=$rs->alias("a")->join($join)->join($join2)->field($field)->where($where)->order($order)->limit($page->firstRow . ',' . $page->listRows)->select();
-	// echo $rs->getLastSql();
+	// echo $rs->getLastSql();die;
 	// dump($posts);die;
 	$content['posts']=$posts;
 	$content['page']=$page->show('default');

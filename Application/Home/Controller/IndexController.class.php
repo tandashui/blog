@@ -14,7 +14,13 @@ class IndexController extends BaseController {
             // echo $id;die;
 
             // var_dump($term_ids);die;
-            $list=sp_sql_posts_paged("cid:$id;order:post_date DESC;",5);
+            // echo $id;die;
+                //查出父级下的所有子类id
+                $cats['parent']=array('eq',$id);
+                $term_id = $term_model->where($cats)->getField('term_id',true);
+                $term_id = implode(',',$term_id);
+                // echo $term_id;die;
+            $list=sp_sql_posts_paged("cid:$term_id;order:post_date DESC;",5);
             // var_dump($list);die;
         }else{
                     //查出所有的分类
@@ -27,11 +33,11 @@ class IndexController extends BaseController {
         // var_dump($list);die;
         //查出文章所属分类
          foreach ($list['posts'] as $kss => $vss) {
-          
-            $cats['parent']=array('eq',$vss['term_id']);
-
-            $cat=$term_model->where($cats)->find();
-           
+          // var_dump($vss['term_id']);die;
+            $catss['term_id']=array('eq',$vss['term_id']);
+            // var_dump($catss);die;
+            $cat=$term_model->where($catss)->find();
+           // var_dump($cat);
             $list['posts'][$kss]["name"]=$cat['name'];
 
         }
