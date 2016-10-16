@@ -15,6 +15,64 @@
  */
 
 function sp_sql_posts_paged($tag,$pagesize=20,$pagetpl='{first}{prev}{liststart}{list}{listend}{next}{last}'){
+	// echo $tag;die;
+	// echo $pagesize;die;
+	// var_dump($tag);die;
+	$where=array();
+	$tag=sp_param_lable($tag);
+	// var_dump($tag);die;
+	$field = !empty($tag['field']) ? $tag['field'] : '*';
+	$limit = !empty($tag['limit']) ? $tag['limit'] : '';
+	$order = !empty($tag['order']) ? $tag['order'] : 'post_date';
+
+	//根据参数生成查询条件
+	$where['status'] = array('eq',1);
+	$where['post_status'] = array('eq',1);
+	// $where['recommended'] = array('eq',1);
+	
+
+	if (isset($tag['cid'])) {
+		$where['term_id'] = array('in',$tag['cid']);
+	}
+
+	if (isset($tag['ids'])) {
+		$where['object_id'] = array('in',$tag['ids']);
+	}
+	
+	if (isset($tag['where'])) {
+		$where['_string'] = $tag['where'];
+	}
+	// var_dump($where);die;
+	$join = "".C('DB_PREFIX').'posts as b on a.object_id =b.id';
+	// var_dump($join);die;
+	//暂时只能管理员发文章
+	// $join2= "".C('DB_PREFIX').'users as c on b.post_author = c.id';
+	// var_dump($join2);die;
+	$rs= M("TermRelationships");
+	$totalsize=$rs->alias("a")->join($join)->join($join2)->field($field)->where($where)->count();
+	
+	// import('Page');
+	if ($pagesize == 0) {
+		$pagesize = 20;
+	}
+	$PageParam = C("VAR_PAGE");
+	// echo $PageParam;die;
+	$page = new \Org\Util\Page($totalsize,$pagesize);
+	$page->setLinkWraper("li");
+	$page->__set("PageParam", $PageParam);
+	$page->SetPager('default', $pagetpl, array("listlong" => "9", "first" => "首页", "last" => "尾页", "prev" => "上一页", "next" => "下一页", "list" => "*", "disabledclass" => ""));
+	$posts=$rs->alias("a")->join($join)->join($join2)->field($field)->where($where)->order($order)->limit($page->firstRow . ',' . $page->listRows)->select();
+	// echo $rs->getLastSql();die;
+	// dump($posts);die;
+	$content['posts']=$posts;
+	$content['page']=$page->show('default');
+	$content['count']=$totalsize;
+	// var_dump($content);die;
+	return $content;
+}
+
+function sp_sql_posts_paged2($tag,$pagesize=20,$pagetpl='{first}{prev}{liststart}{list}{listend}{next}{last}'){
+	// echo $tag;die;
 	// echo $pagesize;die;
 	// var_dump($tag);die;
 	$where=array();

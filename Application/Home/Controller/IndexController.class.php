@@ -18,9 +18,9 @@ class IndexController extends BaseController {
                 //查出父级下的所有子类id
                 $cats['parent']=array('eq',$id);
                 $term_id = $term_model->where($cats)->getField('term_id',true);
-                $term_id = implode(',',$term_id);
-                // echo $term_id;die;
-            $list=sp_sql_posts_paged("cid:$term_id;order:post_date DESC;",5);
+                $term_ids = implode(',',$term_id);
+                // echo $term_ids;die;
+            $list=sp_sql_posts_paged("cid:$term_ids;order:post_date DESC;",5);
             // var_dump($list);die;
         }else{
                     //查出所有的分类

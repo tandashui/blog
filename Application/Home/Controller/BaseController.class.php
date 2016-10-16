@@ -17,14 +17,14 @@ class BaseController extends Controller {
             $term_ids=implode(",",$term_id);
 
             // var_dump($term_ids);die;
-            $list=sp_sql_posts_paged("cid:$id;order:post_date DESC;",5);
+            $list=sp_sql_posts_paged2("cid:$id;order:post_date DESC;",5);
         }else{
                     //查出所有的分类
                 $term_id = $term_model->getField('term_id',true);
                 $term_ids=implode(",",$term_id);
 
                 // var_dump($term_ids);die;
-                $list=sp_sql_posts_paged("cid:$term_ids;order:post_date DESC;",5);
+                $list=sp_sql_posts_paged2("cid:$term_ids;order:post_date DESC;",5);
         }
     	
         // dump($list);
@@ -70,7 +70,7 @@ class BaseController extends Controller {
                 $term_ids=implode(",",$term_id);
 
                 // var_dump($term_ids);die;
-                $hot=sp_sql_posts_paged("cid:$term_ids;order:post_hits DESC;",5);
+                $hot=sp_sql_posts_paged2("cid:$term_ids;order:post_hits DESC;",5);
         $this->assign('hot', $hot);
         $this->assign('result1', $result1);
     }
