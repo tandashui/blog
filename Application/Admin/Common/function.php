@@ -41,3 +41,14 @@ function upload(){
 		return $info;
 	}
 }
+
+/**
+ * CMF密码加密方法
+ * @param string $pw 要加密的字符串
+ * @return string
+ */
+function sp_password($pw){
+	$decor=md5(C('DB_PREFIX'));
+	$mi=md5($pw);
+	return substr($decor,0,12).$mi.substr($decor,-4,4);
+}

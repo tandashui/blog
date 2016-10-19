@@ -75,4 +75,9 @@ class BaseController extends Controller {
         $this->assign('result1', $result1);
     }
 
+    //空操作
+    public function _empty() {
+        $this->error('该页面不存在！');
+    }
+
 }
