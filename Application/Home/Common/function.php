@@ -598,3 +598,26 @@ function msubstr($str, $start=0, $length, $charset="utf-8", $suffix=true) {
     }
     return $suffix ? $slice.'...' : $slice;
 }
+
+/**
+ * 获取CMF系统的设置，此类设置用于全局
+ * @param string $key 设置key，为空时返回所有配置信息
+ * @return mixed
+ */
+function sp_get_cmf_settings($key=""){
+	$cmf_settings = F("cmf_settings");
+	if(empty($cmf_settings)){
+		$options_obj = M("Options");
+		$option = $options_obj->where("option_name='cmf_settings'")->find();
+		if($option){
+			$cmf_settings = json_decode($option['option_value'],true);
+		}else{
+			$cmf_settings = array();
+		}
+		F("cmf_settings", $cmf_settings);
+	}
+	if(!empty($key)){
+		return $cmf_settings[$key];
+	}
+	return $cmf_settings;
+}
