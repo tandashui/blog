@@ -19,10 +19,9 @@
       <h1 class="article-title">标签云</h1>
     </header>
     <ul class="plinks ptags">
-      <li><a href="" title="" target="_blank">这个是标签 <span class="badge">42</span></a></li>
-      <li><a href="" title="" target="_blank">这个是标签 <span class="badge">42</span></a></li>
-      <li><a href="" title="" target="_blank">这个是标签 <span class="badge">42</span></a></li>
-      <li><a href="" title="" target="_blank">这个是标签 <span class="badge">42</span></a></li>
+    <volist name="terminfo" id="vo" empty="暂无数据">
+      <li><a href="{:leuu('Tags/lists',array('id'=>$vo['term_id']))}" title="" target="_blank">{$vo.name} <span class="badge">{$vo.term_id} </span></a></li>
+      </volist>
     </ul>
   </div>
 </section>
